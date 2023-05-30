@@ -10,7 +10,7 @@ useSeoMeta({
 
 <template>
     <div
-        class="flex flex-col justify-center items-center h-[calc(100vh-72px)] gap-8 max-w-3xl mx-auto"
+        class="flex flex-col items-center justify-center min-h-[calc(100vh-72px)] gap-8 max-w-3xl mx-auto"
     >
         <h1 class="text-5xl font-black text-center md:text-7xl">
             Lorem ipsum
