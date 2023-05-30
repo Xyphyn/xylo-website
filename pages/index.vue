@@ -1,7 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { ButtonColor } from '~/components/color'
+
+useSeoMeta({
+    title: 'Lorem ipsum',
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+})
 </script>
+
 <template>
     <div
         class="flex flex-col justify-center items-center h-[calc(100vh-72px)] gap-8 max-w-3xl mx-auto"
