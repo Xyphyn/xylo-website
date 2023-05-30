@@ -14,7 +14,7 @@ useSeoMeta({
 
 <template>
     <div
-        class="flex flex-col items-center justify-center min-h-[calc(100vh-72px)] gap-8 max-w-4xl mx-auto"
+        class="flex flex-col items-center justify-center min-h-[calc(100svh-124px)] gap-8 max-w-4xl mx-auto"
     >
         <LogoAnimated :width="100" :height="100" />
         <h1 class="text-5xl font-black text-center md:text-7xl">
@@ -167,7 +167,7 @@ useSeoMeta({
                     <p class="text-sm">Select your roles here!</p>
                 </DiscordEmbed>
                 <div
-                    class="flex flex-row items-center p-2 py-1.5 mt-1 w-screen max-w-sm rounded-md cursor-pointer bg-black/10"
+                    class="flex flex-row items-center p-2 py-1.5 mt-1 w-full max-w-sm rounded-md cursor-pointer bg-black/10 dark:bg-white/10"
                 >
                     <div
                         class="px-2 py-1.5 bg-white dark:bg-zinc-950 rounded-[3px] w-max"
