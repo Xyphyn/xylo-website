@@ -34,7 +34,11 @@ useSeoMeta({
             menus.
         </p>
         <div class="flex gap-4 items-center md:flex-row">
-            <Linkbutton :large="true" :color="ButtonColor.accent">
+            <Linkbutton
+                :large="true"
+                :color="ButtonColor.accent"
+                href="https://discord.com/api/oauth2/authorize?client_id=977240559641038921&permissions=1376805841990&scope=bot%20applications.commands"
+            >
                 Invite
             </Linkbutton>
             <Linkbutton
