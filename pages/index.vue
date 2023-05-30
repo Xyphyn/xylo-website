@@ -41,7 +41,7 @@ useSeoMeta({
             </Linkbutton>
         </div>
     </div>
-    <div class="flex flex-col mx-auto w-full max-w-4xl">
+    <section class="flex flex-col mx-auto w-full max-w-4xl">
         <h1
             class="self-center py-8 m-4 w-full text-5xl font-black text-center border-b md:text-left border-black/10 dark:border-white/10"
             id="features"
@@ -105,5 +105,5 @@ useSeoMeta({
                 </DiscordEmbed>
             </DiscordMessage>
         </div>
-    </div>
+    </section>
 </template>
