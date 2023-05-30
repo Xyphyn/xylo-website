@@ -1,5 +1,6 @@
 <template>
-  <div class="">
-    <NuxtPage />
-  </div>
+    <div class="mx-auto max-w-4xl">
+        <Navbar></Navbar>
+        <NuxtPage />
+    </div>
 </template>
