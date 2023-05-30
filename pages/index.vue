@@ -1,17 +1,46 @@
 <script setup>
-import Button from '~/components/linkbutton.vue'
+import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { ButtonColor } from '~/components/color'
 </script>
-
 <template>
     <div
-        class="flex flex-col gap-8 items-center m-8 mx-4 md:flex-row md:mx-0 md:items-start"
+        class="flex flex-col justify-center items-center h-[calc(100vh-72px)] gap-8 max-w-3xl mx-auto"
     >
-        <div class="flex flex-col flex-1 gap-4 text-center md:text-left">
-            <h1 class="text-3xl font-bold md:self-start md:text-5xl">
+        <h1 class="text-5xl font-black text-center md:text-7xl">
+            Lorem ipsum
+            <span
+                class="from-[#7f27c7] to-[#f30386] bg-gradient-to-r bg-clip-text text-transparent s"
+            >
+                dolor
+            </span>
+            sit amet
+        </h1>
+        <p class="text-center opacity-80">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere
+            enim quis et porro! Ullam nihil quidem magnam obcaecati nemo, cumque
+            recusandae labore aspernatur, nisi in nulla eum fugit facere
+            perferendis.
+        </p>
+        <div class="flex gap-4 items-center md:flex-row">
+            <Linkbutton :large="true" :color="ButtonColor.accent">
+                Invite
+            </Linkbutton>
+            <Linkbutton
+                :large="true"
+                :color="ButtonColor.primary"
+                href="/#features"
+            >
+                Learn more
+                <ChevronDownIcon class="w-4 h-4" />
+            </Linkbutton>
+        </div>
+    </div>
+    <div class="flex flex-col gap-8 items-center m-8 mx-4 md:flex-row md:mx-0">
+        <div class="flex flex-col flex-1 gap-4 w-full text-center md:text-left">
+            <h1 class="text-3xl font-bold md:text-5xl" id="features">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
             </h1>
-            <p>
+            <p class="opacity-80">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                 Voluptas hic aliquam nesciunt molestiae nulla. Dolore labore
                 deserunt corrupti quaerat iure commodi assumenda consequatur
@@ -26,14 +55,12 @@ import { ButtonColor } from '~/components/color'
         <DiscordMessage class="flex-1">
             <DiscordEmbed>
                 <template v-slot:title>This is an embed.</template>
-                <template v-slot:description>
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Fugiat veniam suscipit earum adipisci veritatis
-                        magnam, totam eaque molestias eos quisquam, quidem ipsum
-                        culpa in at odit hic natus aliquid libero!
-                    </p>
-                </template>
+                <p class="text-sm">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Fugiat veniam suscipit earum adipisci veritatis magnam,
+                    totam eaque molestias eos quisquam, quidem ipsum culpa in at
+                    odit hic natus aliquid libero!
+                </p>
             </DiscordEmbed>
         </DiscordMessage>
     </div>

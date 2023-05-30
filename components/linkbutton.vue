@@ -6,6 +6,7 @@ const props = defineProps({
     onclick: (e) => any,
     button: Boolean,
     color: ButtonColor,
+    large: Boolean,
 })
 </script>
 
@@ -13,14 +14,18 @@ const props = defineProps({
     <button
         v-if="props.button"
         @click="onclick"
-        :class="`rounded-md px-3 py-1.5 w-max text-sm transition-colors cursor-pointer ${props.color}`"
+        :class="`flex flex-row items-center gap-1 rounded-md px-3 py-1.5
+        text-sm transition-colors cursor-pointer ${props.color}
+        ${large ? 'w-36 h-10 text-base justify-center' : 'w-max'}`"
     >
         <slot />
     </button>
     <a
         v-else
         :href="props.href"
-        :class="`flex flex-row items-center gap-1 rounded-md px-3 py-1.5 w-max text-sm transition-colors cursor-pointer ${props.color}`"
+        :class="`flex flex-row items-center gap-1 rounded-md px-3 py-1.5
+        transition-all cursor-pointer text-sm ${props.color}
+        ${large ? 'w-36 h-10 text-base justify-center' : 'w-max'}`"
     >
         <slot />
     </a>
