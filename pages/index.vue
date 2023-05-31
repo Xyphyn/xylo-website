@@ -2,6 +2,7 @@
 import {
     ChevronDownIcon,
     LanguageIcon,
+    QueueListIcon,
     WrenchIcon,
 } from '@heroicons/vue/20/solid'
 import { ButtonColor } from '~/components/color'
@@ -70,7 +71,7 @@ useSeoMeta({
                         fill="none"
                     >
                         <path
-                            class="stroke-black dark:stroke-white"
+                            class="stroke-white"
                             d="M75 25L25 75"
                             stroke-width="10"
                             stroke-linecap="round"
@@ -79,7 +80,7 @@ useSeoMeta({
                 </template>
                 <template v-slot:title>Slash commands</template>
                 <template v-slot:description>
-                    <p class="text-sm">
+                    <p class="text-sm opacity-80">
                         No more prefixes or !help. Just press
                         <kbd>/</kbd>
                         and you can see every command.
@@ -92,21 +93,22 @@ useSeoMeta({
                 </template>
                 <template v-slot:title>Translation</template>
                 <template v-slot:description>
-                    <p class="text-sm">
+                    <p class="text-sm opacity-80">
                         With /translate, you can translate any message to
-                        another language in seconds
+                        another language in seconds.
                     </p>
                 </template>
             </Feature>
             <Feature class="flex-1">
                 <template v-slot:icon>
-                    <WrenchIcon class="w-6 h-6" />
+                    <QueueListIcon class="w-6 h-6" />
                 </template>
-                <template v-slot:title>Moderation</template>
+                <template v-slot:title>Role selection</template>
                 <template v-slot:description>
-                    <p class="text-sm">
-                        Like any of the 234,523,791 bots out there, this bot
-                        supports warning, automutes, and timeouts.
+                    <p class="text-sm opacity-80">
+                        Xylo replaces the typical reaction roles with a modern
+                        alternative using selection menus. Easily edit the
+                        available options.
                     </p>
                 </template>
             </Feature>
