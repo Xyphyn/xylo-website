@@ -12,7 +12,7 @@ import { PlusIcon } from '@heroicons/vue/20/solid'
             <Linkbutton href="/" :color="ButtonColor.secondary">
                 Home
             </Linkbutton>
-            <linkbutton href="/" :color="ButtonColor.secondary">
+            <linkbutton href="/dashboard" :color="ButtonColor.secondary">
                 Dashboard
             </linkbutton>
         </div>

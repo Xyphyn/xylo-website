@@ -14,4 +14,13 @@ export default defineNuxtConfig({
             ],
         },
     },
+    runtimeConfig: {
+        secret: process.env.CLIENT_SECRET,
+        clientId: process.env.CLIENT_ID,
+        redirectUri: process.env.OAUTH_REDIRECT_URI,
+        public: {
+            botServer:
+                process.env.BOT_SERVER_URL ?? `https://xylo-bot.xylight.dev`,
+        },
+    },
 })

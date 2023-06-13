@@ -23,9 +23,11 @@ const props = defineProps({
     <a
         v-else
         :href="props.href"
-        :class="`flex flex-row items-center gap-1 rounded-md px-3 py-1.5
+        :class="`flex flex-row items-center gap-1 rounded-md py-1.5
         transition-all cursor-pointer text-sm ${props.color}
-        ${large ? 'w-36 h-10 text-base justify-center' : 'w-max'}`"
+        ${
+            large ? 'min-w-36 h-10 text-base justify-center px-4' : 'w-max px-3'
+        }`"
     >
         <slot />
     </a>
