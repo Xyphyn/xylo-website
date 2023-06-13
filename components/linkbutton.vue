@@ -3,17 +3,19 @@ import { ButtonColor } from './color'
 
 const props = defineProps({
     href: String,
-    onclick: (e) => any,
     button: Boolean,
     color: ButtonColor,
     large: Boolean,
+    disabled: Boolean,
 })
+
+const methods = defineEmits(['click'])
 </script>
 
 <template>
     <button
         v-if="props.button"
-        @click="onclick"
+        @click="$emit('click')"
         :class="`flex flex-row items-center gap-1 rounded-md py-1.5
         text-sm transition-colors cursor-pointer ${
             props.color ?? ButtonColor.secondary
@@ -22,7 +24,8 @@ const props = defineProps({
             large
                 ? 'min-w-[8rem] h-10 text-base justify-center px-4'
                 : 'w-max px-3'
-        }`"
+        }
+        ${disabled ? 'cursor-not-allowed pointer-events-none opacity-50' : ''}`"
     >
         <slot />
     </button>
@@ -37,7 +40,8 @@ const props = defineProps({
             large
                 ? 'min-w-[8rem] h-10 text-base justify-center px-4'
                 : 'w-max px-3'
-        }`"
+        }
+        ${disabled ? 'cursor-not-allowed pointer-events-none opacity-50' : ''}`"
     >
         <slot />
     </nuxt-link>

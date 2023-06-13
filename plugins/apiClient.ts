@@ -16,6 +16,15 @@ interface Guild {
     owner: boolean
 }
 
+interface GuildConfigData {
+    embedColor: number
+}
+
+export interface ConfigurableGuild {
+    data: Guild
+    config: GuildConfigData
+}
+
 export class XyloClient {
     private baseUrl: string
     private token?: string
@@ -61,7 +70,7 @@ export class XyloClient {
         return res.user
     }
 
-    async guild(id: string): Promise<any> {
+    public async getGuild(id: string): Promise<ConfigurableGuild | null> {
         if (!this.token) throw Error('Unauthenticated')
 
         const res = await fetch(`${this.baseUrl}/gated/guild/${id}`, {
@@ -76,7 +85,25 @@ export class XyloClient {
 
         const data = await res.json()
 
-        return data
+        return { ...data }
+    }
+
+    public async updateGuildConfig(
+        id: string,
+        data: GuildConfigData
+    ): Promise<GuildConfigData> {
+        if (!this.token) throw Error('Unauthenticated')
+
+        const res = await fetch(`${this.baseUrl}/gated/guild/${id}/config`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json',
+            },
+        })
+
+        return await res.json()
     }
 }
 
