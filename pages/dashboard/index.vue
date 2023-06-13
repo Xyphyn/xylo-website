@@ -1,31 +1,16 @@
 <script setup lang="ts">
 import { ButtonColor } from '~/components/color.js'
 
-const config = useRuntimeConfig()
+useSeoMeta({
+    title: 'Dashboard',
+})
 
-if (!useCookie('discord-token')) {
-}
+const { data } = await useAsyncData(async (app) => {
+    if (!app?.$xylo.validToken) return
+    const me = await app?.$xylo.me()
 
-interface IndexResponse {
-    data: {
-        guilds: Guild[]
-    }
-}
-
-interface Guild {
-    id: string
-    name: string
-    icon: string | null
-}
-
-const data = await useFetch<IndexResponse>(
-    `${config.public.botServer}/gated/me`,
-    {
-        headers: {
-            authorization: useCookie('discord-token').value!,
-        },
-    }
-)
+    return me
+})
 </script>
 
 <template>
@@ -34,33 +19,29 @@ const data = await useFetch<IndexResponse>(
     >
         <div
             class="flex flex-col gap-8 justify-center items-center"
-            v-if="useCookie('discord-token').value != null"
+            v-if="data"
         >
             <h1 class="text-4xl font-black">Choose a guild</h1>
-            <div
+            <ul
                 class="flex flex-row flex-wrap gap-2 justify-center items-center mx-auto max-w-xl"
             >
-                <div
+                <nuxt-link
+                    :to="`/dashboard/${guild.id}`"
                     class="flex flex-col gap-2 items-center text-center"
-                    v-for="guild in data?.data.value?.data.guilds"
+                    v-for="guild in data.guilds.filter((g) => g.owner)"
                 >
                     <img
                         :src="
                             guild.icon
                                 ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64`
-                                : `https://api.dicebear.com/6.x/initials/svg?backgroundColor=000000&seed=${guild.name}`
+                                : `https://api.dicebear.com/6.x/initials/svg?backgroundColor=313338&seed=${guild.name}`
                         "
                         class="p-1 w-20 h-20 rounded-full bg-[#313338]"
                         width="96"
                         height="96"
                     />
-                    <span
-                        class="max-w-[100%] text-sm overflow-hidden text-ellipsis"
-                    >
-                        {{ guild.name }}
-                    </span>
-                </div>
-            </div>
+                </nuxt-link>
+            </ul>
         </div>
         <div class="flex flex-col gap-8 justify-center items-center" v-else>
             <Linkbutton
