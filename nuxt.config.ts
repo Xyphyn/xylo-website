@@ -12,6 +12,13 @@ export default defineNuxtConfig({
                     content: 'A dashboard for Xylo bot',
                 },
             ],
+            link: [
+                {
+                    rel: 'icon',
+                    type: 'image/svg+xml',
+                    href: '/img/logo-background.svg',
+                },
+            ],
         },
         pageTransition: { name: 'page', mode: 'out-in' },
         layoutTransition: { name: 'layout', mode: 'out-in' },
