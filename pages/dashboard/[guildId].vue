@@ -105,7 +105,12 @@ let newData = {
                             class="p-2 rounded-md"
                             v-model="newData.logChannel"
                         >
-                            <option disabled value="">Please select one</option>
+                            <option
+                                :selected="!guild?.config.logChannel"
+                                :value="undefined"
+                            >
+                                None
+                            </option>
                             <option
                                 v-for="channel in channels"
                                 :value="channel.id"
