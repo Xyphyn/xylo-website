@@ -18,6 +18,7 @@ interface Guild {
 
 interface GuildConfigData {
     embedColor: number
+    logChannel?: string
 }
 
 export interface ConfigurableGuild {
@@ -74,6 +75,26 @@ export class XyloClient {
         if (!this.token) throw Error('Unauthenticated')
 
         const res = await fetch(`${this.baseUrl}/gated/guild/${id}`, {
+            headers: {
+                authorization: this.token,
+            },
+        })
+
+        if (res.status >= 400) {
+            return null
+        }
+
+        const data = await res.json()
+
+        return { ...data }
+    }
+
+    public async getGuildChannels(
+        id: string
+    ): Promise<{ id: string; name: string }[] | null> {
+        if (!this.token) throw Error('Unauthenticated')
+
+        const res = await fetch(`${this.baseUrl}/gated/guild/${id}/channels`, {
             headers: {
                 authorization: this.token,
             },

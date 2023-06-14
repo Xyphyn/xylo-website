@@ -25,10 +25,14 @@ const { data } = await useAsyncData(async (app) => {
             <ul
                 class="flex flex-row flex-wrap gap-2 justify-center items-center mx-auto max-w-xl"
             >
+                <p v-if="data?.guilds?.length == 0">
+                    Xylo is not in any of your guilds. Perhaps you might want to
+                    invite it. 😏
+                </p>
                 <nuxt-link
                     :to="`/dashboard/${guild.id}`"
                     class="flex flex-col gap-2 items-center text-center"
-                    v-for="guild in data.guilds.filter((g) => g.owner)"
+                    v-for="guild in data.guilds"
                 >
                     <img
                         :src="

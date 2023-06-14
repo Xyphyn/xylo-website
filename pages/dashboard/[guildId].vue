@@ -17,6 +17,10 @@ const { data: guild } = await useAsyncData(async (app) => {
     return await app?.$xylo.getGuild(route.params.guildId as string)
 })
 
+const { data: channels } = await useAsyncData(async (app) => {
+    return await app?.$xylo.getGuildChannels(route.params.guildId as string)
+})
+
 useSeoMeta({
     title: 'Dashboard',
 })
@@ -27,12 +31,19 @@ async function save() {
     const app = useNuxtApp()
 
     disabled.value = true
-    await app.$xylo.updateGuildConfig(guild.value!.data.id, newData)
+    const newConfig = await app.$xylo.updateGuildConfig(
+        guild.value!.data.id,
+        newData
+    )
+
+    newData = {
+        ...newConfig,
+    }
 
     disabled.value = false
 }
 
-const newData = {
+let newData = {
     ...guild?.value?.config!,
 }
 </script>
@@ -66,13 +77,13 @@ const newData = {
                 >
                     Save
                 </Linkbutton>
-                <div class="flex flex-col md:mr-auto">
+                <div class="flex flex-col gap-4 md:mr-auto">
                     <h1 class="text-xl font-bold">JSON Data</h1>
                     <pre>
                         {{ guild }}
                     </pre>
                     <div
-                        class="flex flex-col gap-2 p-4 rounded-lg bg-slate-200 dark:bg-zinc-900"
+                        class="flex flex-col gap-2 p-8 rounded-lg bg-slate-200 dark:bg-zinc-900"
                     >
                         <h1 class="text-xl font-bold">Embed color</h1>
                         <input
@@ -84,6 +95,27 @@ const newData = {
                             }
                         "
                         />
+                    </div>
+                    <div
+                        class="flex flex-col gap-2 p-8 rounded-lg bg-slate-200 dark:bg-zinc-900"
+                    >
+                        <h1 class="text-xl font-bold">Channel</h1>
+                        <select
+                            placeholder="Select channel"
+                            class="p-2 rounded-md"
+                            v-model="newData.logChannel"
+                        >
+                            <option disabled value="">Please select one</option>
+                            <option
+                                v-for="channel in channels"
+                                :value="channel.id"
+                                :selected="
+                                    guild?.config.logChannel == channel.id
+                                "
+                            >
+                                #{{ channel.name }}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
