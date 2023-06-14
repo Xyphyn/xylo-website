@@ -15,8 +15,6 @@
     },
     "dependencies": {
         "@heroicons/vue": "^2.0.18",
-        "@supabase/supabase-js": "^2.23.0",
-        "appwrite": "^11.0.0",
-        "pocketbase": "^0.15.0"
+        "discord-oauth2": "^2.11.0"
     }
 }
