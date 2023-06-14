@@ -39,27 +39,24 @@ export class XyloClient {
      * @returns Whether the user is authenticated or not
      */
     async ping() {
-        const res: { authenticated: boolean } = await fetch(
-            `${this.baseUrl}/ping`,
-            {
-                headers: {
-                    authorization: this.token ?? '',
-                },
-            }
-        )
+        const res = await fetch(`${this.baseUrl}/ping`, {
+            headers: {
+                authorization: this.token ?? '',
+            },
+        })
 
-	if (res.status >= 400) {
-	    this.token = undefined
+        if (res.status >= 400) {
+            this.token = undefined
 
-	    return false
-	}
+            return false
+        }
 
-	const json = await res.json()
+        const json = await res.json()
 
         if (!json?.authenticated) {
             this.token = undefined
             return false
-	}
+        }
 
         return json.authenticated
     }
