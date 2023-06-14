@@ -46,13 +46,22 @@ export class XyloClient {
                     authorization: this.token ?? '',
                 },
             }
-        ).then((data) => data.json())
+        )
 
-        if (!res.authenticated) {
+	if (res.status >= 400) {
+	    this.token = undefined
+
+	    return false
+	}
+
+	const json = await res.json()
+
+        if (!json?.authenticated) {
             this.token = undefined
-        }
+            return false
+	}
 
-        return res.authenticated
+        return json.authenticated
     }
 
     get validToken() {
