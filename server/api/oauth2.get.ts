@@ -33,7 +33,10 @@ export default defineEventHandler(async (e) => {
     if (res.status >= 400 || !json || !json.access_token) {
         throw createError({
             statusCode: 400,
-            statusMessage: JSON.stringify(json),
+            statusMessage: JSON.stringify({
+                ...json,
+                redirect_uri: config.redirectUri,
+            }),
         })
     }
 
