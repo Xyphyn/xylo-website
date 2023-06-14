@@ -31,15 +31,13 @@ export default defineEventHandler(async (e) => {
     const json = await res.json()
 
     if (res.status >= 400 || !json || !json.access_token) {
-        throw Error(JSON.stringify(json))
-
-        return {
-            message: `Error during authorization`,
-        }
+        throw createError({
+            statusCode: 400,
+            statusMessage: JSON.stringify(json),
+        })
     }
 
     setCookie(e, 'discord-token', json.access_token, {})
 
-    // nice little hack because there's no easy way to redirect
     return sendRedirect(e, '/dashboard', 300)
 })
