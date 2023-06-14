@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowLeftIcon } from '@heroicons/vue/20/solid'
+import { ArrowLeftIcon, Cog6ToothIcon } from '@heroicons/vue/20/solid'
 </script>
 
 <template>
@@ -27,6 +27,7 @@ import { ArrowLeftIcon } from '@heroicons/vue/20/solid'
                         justify-content: start !important;
                     "
                 >
+                    <Cog6ToothIcon class="w-4 h-4" />
                     General
                 </Linkbutton>
             </nav>

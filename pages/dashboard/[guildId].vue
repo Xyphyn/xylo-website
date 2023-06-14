@@ -64,7 +64,12 @@ let newData = {
                 />
             </template>
             <template #title>
-                {{ guild?.data?.name }}
+                <div class="flex flex-col gap-0.5 text-xl">
+                    <h3>{{ guild?.data?.name }}</h3>
+                    <span class="text-xs opacity-70">
+                        {{ guild?.data.id }}
+                    </span>
+                </div>
             </template>
             <div class="flex flex-col gap-4 md:flex-row-reverse">
                 <Linkbutton
@@ -77,51 +82,72 @@ let newData = {
                 >
                     Save
                 </Linkbutton>
-                <div class="flex flex-col gap-4 md:mr-auto">
-                    <h1 class="text-xl font-bold">JSON Data</h1>
-                    <pre>
-                        {{ guild }}
-                    </pre>
-                    <div
-                        class="flex flex-col gap-2 p-8 rounded-lg bg-slate-200 dark:bg-zinc-900"
-                    >
-                        <h1 class="text-xl font-bold">Embed color</h1>
-                        <input
-                            type="color"
-                            :value="`#${guild?.config.embedColor.toString(16)}`"
-                            @change="
+                <div class="flex flex-col gap-4 w-full max-w-xl md:mr-auto">
+                    <Setting>
+                        <template #title>Embed color</template>
+                        <template #description>
+                            The color used in message embeds
+                        </template>
+                        <template #type>Color</template>
+                        <template #input>
+                            <div class="flex flex-row gap-1 items-center px-2">
+                                <span class="text-sm">Color</span>
+                                <input
+                                    type="color"
+                                    :value="`#${guild?.config.embedColor.toString(
+                                        16
+                                    )}`"
+                                    @change="
                             (e: any) => {
                                 newData.embedColor = Number(e.target.value.replace('#', '0x'))
                             }
                         "
-                        />
-                    </div>
-                    <div
-                        class="flex flex-col gap-2 p-8 rounded-lg bg-slate-200 dark:bg-zinc-900"
+                                />
+                            </div>
+                        </template>
+                    </Setting>
+                    <Setting>
+                        <template #title>Channel</template>
+                        <template #description>
+                            The channel to send moderation, update, etc logs to.
+                        </template>
+                        <template #type>Channel</template>
+                        <template #input>
+                            <select
+                                placeholder="Select channel"
+                                class="p-2 w-full max-w-xs rounded-[4px] text-sm bg-slate-100 dark:bg-zinc-950"
+                                v-model="newData.logChannel"
+                            >
+                                <option
+                                    :selected="!guild?.config.logChannel"
+                                    :value="undefined"
+                                >
+                                    None
+                                </option>
+                                <option
+                                    v-for="channel in channels"
+                                    :value="channel.id"
+                                    :selected="
+                                        guild?.config.logChannel == channel.id
+                                    "
+                                >
+                                    #{{ channel.name }}
+                                </option>
+                            </select>
+                        </template>
+                    </Setting>
+                    <details
+                        class="p-4 max-w-full text-sm break-words rounded-md border bg-slate-200 border-slate-300 dark:bg-zinc-900 dark:border-zinc-800"
                     >
-                        <h1 class="text-xl font-bold">Channel</h1>
-                        <select
-                            placeholder="Select channel"
-                            class="p-2 rounded-md"
-                            v-model="newData.logChannel"
+                        <summary class="cursor-pointer">JSON data</summary>
+                        <pre
+                            class="w-full max-w-full whitespace-pre-wrap break-words"
                         >
-                            <option
-                                :selected="!guild?.config.logChannel"
-                                :value="undefined"
-                            >
-                                None
-                            </option>
-                            <option
-                                v-for="channel in channels"
-                                :value="channel.id"
-                                :selected="
-                                    guild?.config.logChannel == channel.id
-                                "
-                            >
-                                #{{ channel.name }}
-                            </option>
-                        </select>
-                    </div>
+                            {{
+                                JSON.stringify(guild, undefined, 4).trimStart()
+                            }}
+                        </pre>
+                    </details>
                 </div>
             </div>
         </NuxtLayout>
