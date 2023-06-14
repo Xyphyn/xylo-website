@@ -3,13 +3,13 @@ interface GatedIndex {
 }
 
 interface User {
-    guilds: Guild[]
+    guilds: IGuild[]
     id: string
     username: string
     avatar: string
 }
 
-interface Guild {
+interface IGuild {
     id: string
     name: string
     icon: string | null
@@ -22,12 +22,52 @@ interface GuildConfigData {
 }
 
 export interface ConfigurableGuild {
-    data: Guild
+    data: IGuild
     config: GuildConfigData
 }
 
+class Guild {
+    private id: string
+    private client: XyloClient
+
+    constructor(client: XyloClient, id: string) {
+        this.id = id
+        this.client = client
+    }
+
+    async get(): Promise<ConfigurableGuild | null> {
+        return await this.client.send(
+            `${this.client.baseUrl}/gated/guild/${this.id}`,
+            {},
+            true
+        )
+    }
+
+    async updateConfig(data: GuildConfigData): Promise<GuildConfigData> {
+        return await this.client.send(
+            `${this.client.baseUrl}/gated/guild/${this.id}/config`,
+            {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+            true
+        )
+    }
+
+    async channels(): Promise<{ id: string; name: string }[] | null> {
+        return await this.client.send(
+            `${this.client.baseUrl}/gated/guild/${this.id}/channels`,
+            {},
+            true
+        )
+    }
+}
+
 export class XyloClient {
-    private baseUrl: string
+    baseUrl: string
     private token?: string
 
     constructor(server: string, token?: string) {
@@ -38,12 +78,14 @@ export class XyloClient {
     /**
      * @returns Whether the user is authenticated or not
      */
-    async ping() {
+    async ping(): Promise<boolean | undefined> {
         const res = await fetch(`${this.baseUrl}/ping`, {
             headers: {
                 authorization: this.token ?? '',
             },
-        })
+        }).catch((_) => {})
+
+        if (!res) return
 
         if (res.status >= 400) {
             this.token = undefined
@@ -65,72 +107,40 @@ export class XyloClient {
         return this.token != undefined
     }
 
-    async me() {
-        if (!this.token) throw Error('Unauthenticated')
-
-        const res: GatedIndex = await fetch(`${this.baseUrl}/gated/me`, {
-            headers: {
-                authorization: this.token,
-            },
-        }).then((data) => data.json())
-
-        return res.user
+    async me(): Promise<GatedIndex> {
+        return await this.send(`${this.baseUrl}/gated/me`, {})
     }
 
-    public async getGuild(id: string): Promise<ConfigurableGuild | null> {
-        if (!this.token) throw Error('Unauthenticated')
-
-        const res = await fetch(`${this.baseUrl}/gated/guild/${id}`, {
-            headers: {
-                authorization: this.token,
-            },
-        })
-
-        if (res.status >= 400) {
-            return null
-        }
-
-        const data = await res.json()
-
-        return { ...data }
+    guild(id: string): Guild {
+        return new Guild(this, id)
     }
 
-    public async getGuildChannels(
-        id: string
-    ): Promise<{ id: string; name: string }[] | null> {
-        if (!this.token) throw Error('Unauthenticated')
+    async send<T = any>(
+        basePath: string,
+        reqOptions: { method?: string; headers?: any; body?: string },
+        auth?: boolean
+    ): Promise<T> {
+        if (!this.token && auth) throw new Error('Missing authentication')
+        if (!reqOptions.headers) reqOptions.headers = {}
+        if (this.token) reqOptions.headers.authorization = this.token
 
-        const res = await fetch(`${this.baseUrl}/gated/guild/${id}/channels`, {
-            headers: {
-                authorization: this.token,
-            },
-        })
+        return fetch(basePath, reqOptions)
+            .then(async (response) => {
+                let data: any = {}
 
-        if (res.status >= 400) {
-            return null
-        }
+                try {
+                    data = await response.json()
+                } catch (_) {}
 
-        const data = await res.json()
+                if (response.status >= 400) {
+                    throw new Error('test')
+                }
 
-        return { ...data }
-    }
-
-    public async updateGuildConfig(
-        id: string,
-        data: GuildConfigData
-    ): Promise<GuildConfigData> {
-        if (!this.token) throw Error('Unauthenticated')
-
-        const res = await fetch(`${this.baseUrl}/gated/guild/${id}/config`, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                authorization: this.token,
-                'Content-Type': 'application/json',
-            },
-        })
-
-        return await res.json()
+                return data as T
+            })
+            .catch((err) => {
+                throw new Error(`${err}`)
+            })
     }
 }
 
@@ -143,7 +153,7 @@ export default defineNuxtPlugin(async () => {
         cookie.value as string | undefined // why is cookie.value string | null | undefined
     )
 
-    await xylo.ping()
+    const res = await xylo.ping()
 
     return {
         provide: { xylo },

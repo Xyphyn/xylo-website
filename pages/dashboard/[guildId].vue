@@ -14,11 +14,12 @@ definePageMeta({
 })
 
 const { data: guild } = await useAsyncData(async (app) => {
-    return await app?.$xylo.getGuild(route.params.guildId as string)
+    const res = await app?.$xylo.guild(route.params.guildId as string).get()
+    return res
 })
 
 const { data: channels } = await useAsyncData(async (app) => {
-    return await app?.$xylo.getGuildChannels(route.params.guildId as string)
+    return await app?.$xylo.guild(route.params.guildId as string).channels()
 })
 
 useSeoMeta({
@@ -31,10 +32,9 @@ async function save() {
     const app = useNuxtApp()
 
     disabled.value = true
-    const newConfig = await app.$xylo.updateGuildConfig(
-        guild.value!.data.id,
-        newData
-    )
+    const newConfig = await app.$xylo
+        .guild(guild.value!.data.id)
+        .updateConfig(newData)
 
     newData = {
         ...newConfig,

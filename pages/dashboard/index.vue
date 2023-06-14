@@ -6,10 +6,8 @@ useSeoMeta({
 })
 
 const { data } = await useAsyncData(async (app) => {
-    if (!app?.$xylo.validToken) return
-    const me = await app?.$xylo.me()
-
-    return me
+    const res = await app?.$xylo.me().catch((_) => {})
+    return res?.user
 })
 </script>
 
