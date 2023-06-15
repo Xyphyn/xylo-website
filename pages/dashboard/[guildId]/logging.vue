@@ -13,7 +13,7 @@ definePageMeta({
             v-slot="{ guild, channels, config, onChange }"
         >
             <div
-                class="overflow-visible absolute top-0 left-0 z-10 w-full h-full backdrop-blur-3xl backdrop-brightness-50"
+                class="overflow-visible absolute top-0 left-0 z-10 w-full h-full"
                 v-if="!config.logging.enabled"
             >
                 <div
