@@ -1,6 +1,4 @@
 <script setup>
-import { ButtonColor } from './color'
-
 const props = defineProps({
     href: String,
     button: Boolean,

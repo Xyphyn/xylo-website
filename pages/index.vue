@@ -5,7 +5,6 @@ import {
     QueueListIcon,
     WrenchIcon,
 } from '@heroicons/vue/20/solid'
-import { ButtonColor } from '~/components/color'
 
 useSeoMeta({
     title: 'Xylo',

@@ -16,9 +16,12 @@ interface IGuild {
     owner: boolean
 }
 
-interface GuildConfigData {
+export interface GuildConfigData {
     embedColor: number
-    logChannel?: string
+    logging: {
+        enabled: boolean
+        channel?: string
+    }
 }
 
 export interface ConfigurableGuild {

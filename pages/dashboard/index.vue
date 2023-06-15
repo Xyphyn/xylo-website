@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ButtonColor } from '~/components/color.js'
-
 useSeoMeta({
     title: 'Dashboard',
 })

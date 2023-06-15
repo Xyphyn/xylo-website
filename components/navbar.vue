@@ -1,5 +1,4 @@
 <script setup>
-import { ButtonColor } from '~/components/color'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 </script>
 
