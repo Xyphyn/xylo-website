@@ -19,6 +19,9 @@ export default defineNuxtConfig({
                     href: '/img/logo-background.svg',
                 },
             ],
+            htmlAttrs: {
+                lang: 'en',
+            },
         },
         pageTransition: { name: 'page', mode: 'out-in' },
         layoutTransition: { name: 'layout', mode: 'out-in' },

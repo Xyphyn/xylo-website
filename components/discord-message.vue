@@ -7,6 +7,7 @@
                     width="44"
                     height="44"
                     class="rounded-full"
+                    alt="Xylo logo"
                 />
             </slot>
         </div>

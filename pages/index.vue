@@ -53,12 +53,12 @@ useSeoMeta({
             </div>
         </div>
         <section class="flex flex-col mx-auto w-full max-w-4xl">
-            <h1
+            <h2
                 class="self-center py-8 m-4 w-full text-5xl font-black text-center border-b md:text-left border-black/10 dark:border-white/10"
                 id="features"
             >
                 Features
-            </h1>
+            </h2>
 
             <div class="flex flex-col gap-4 md:flex-row">
                 <Feature class="flex-1">
@@ -115,18 +115,15 @@ useSeoMeta({
             </div>
         </section>
         <section class="flex flex-col mx-auto w-full max-w-4xl">
-            <h1
-                class="self-center m-4 w-full text-5xl font-black text-center border-b md:text-left border-black/10 dark:border-white/10"
-            ></h1>
             <div
                 class="flex flex-col gap-8 items-center m-8 mx-4 md:flex-row md:mx-0"
             >
                 <div
                     class="flex flex-col flex-1 gap-4 w-full text-center md:text-left"
                 >
-                    <h1 class="text-2xl font-bold md:text-3xl">
+                    <h3 class="text-2xl font-bold md:text-3xl">
                         Interactivity
-                    </h1>
+                    </h3>
                     <p class="opacity-80">
                         Xylo is built to utilize many of Discord's bot features.
                         A common one is
@@ -143,7 +140,7 @@ useSeoMeta({
                             <span class="font-bold">Xylight</span>
                             has been warned.
                         </p>
-                        <h6 class="font-bold">Reason</h6>
+                        <span class="font-bold">Reason</span>
                         <p class="text-sm">
                             Making insensitive comments to server members.
                         </p>
@@ -159,7 +156,7 @@ useSeoMeta({
                 <div
                     class="flex flex-col flex-1 gap-4 w-full text-center md:text-right"
                 >
-                    <h1 class="text-2xl font-bold md:text-3xl">Utilities</h1>
+                    <h3 class="text-2xl font-bold md:text-3xl">Utilities</h3>
                     <p class="opacity-80">
                         Xylo replaces many old systems for common utilities,
                         such as reaction roles, replacing them with modern

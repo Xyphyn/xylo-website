@@ -5,7 +5,7 @@
         >
             <slot name="icon" />
         </div>
-        <h1 class="text-xl font-bold"><slot name="title" /></h1>
+        <span class="text-xl font-bold"><slot name="title" /></span>
         <slot name="description" />
     </div>
 </template>
