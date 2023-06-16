@@ -12,23 +12,23 @@
 <style>
 .page-enter-active,
 .page-leave-active {
-    transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    transition: all 0.2s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 .page-enter-from,
 .page-leave-to {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(6px);
 }
 
 .layout-enter-active,
 .layout-leave-active {
-    transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    transition: all 0.2s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 .layout-enter-from,
 .layout-leave-to {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(6px);
 }
 </style>
