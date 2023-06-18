@@ -35,4 +35,7 @@ export default defineNuxtConfig({
                 process.env.BOT_SERVER_URL ?? `https://xylo-bot.xylight.dev`,
         },
     },
+    routeRules: {
+        '/': { prerender: true },
+    },
 })
